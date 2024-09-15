@@ -36,19 +36,20 @@ class UrTube:
                 list_movie.append(video.title)
         return list_movie
 
-    def watch_video(self, movie: str):
-        if self.current_user:
-            for video in self.videos:
-                if self.current_user and self.current_user.age < 18:
-                    print('Вам нет 18 лет, пожалуйста покиньте страницу')
+    def watch_video(self, title):
+        if self.current_user is None:
+            print("Войдите в аккаунт, чтобы смотреть видео")
+            return
+        for video in self.videos:
+            if video.title == title:
+                if video.adult_mode and self.current_user.age < 18:
+                    print("Вам нет 18 лет, пожалуйста покиньте страницу")
                     return
-                if movie in video.title:
-                    for i in range(1, 11):
-                        print(i, end=' ')
-                        time.sleep(1)
-                        video.time_now += 1
-                    video.time_now = 0
-                    print('Конец видео')
+                for second in range(1, video.duration + 1):
+                    print(f"{second}", end=' ')
+                    time.sleep(1)  # Пауза между выводами секунд
+                video.time_now = 0
+                print("Конец видео")
 
 
 class Video:
