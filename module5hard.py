@@ -47,7 +47,7 @@ class UrTube:
                     return
                 for second in range(1, video.duration + 1):
                     print(f"{second}", end=' ')
-                    time.sleep(1)  # Пауза между выводами секунд
+                    time.sleep(1)
                 video.time_now = 0
                 print("Конец видео")
 
